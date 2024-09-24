@@ -1,4 +1,4 @@
-import { ComponentType } from 'preact';
+import { ComponentType } from "preact";
 import {
   MdHomeFilled,
   MdOutlineSlowMotionVideo,
@@ -18,14 +18,26 @@ import { TbMusic, TbDeviceGamepad2 } from "react-icons/tb";
 import { BiBulb, BiNews } from "react-icons/bi";
 import { route } from "preact-router";
 
-type IconProps = JSX.IntrinsicElements['svg'];
+type IconProps = JSX.IntrinsicElements["svg"];
 
-
-const IconWithClassName = (Icon: ComponentType<IconProps>, className: string) => {
+const IconWithClassName = (
+  Icon: ComponentType<IconProps>,
+  className: string
+) => {
   return <Icon className={className} />;
 };
 
-export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
+export const Sidebar = ({
+  isOpen,
+  
+}: {
+  isOpen: boolean;
+  setShowFeedback: (value: boolean) => void;
+}) => {
+  const handleFeedbackClick = () => {
+   route('/feedback')
+  }; 
+
   const mainLinks = [
     {
       icon: IconWithClassName(MdHomeFilled, "text-xl"),
@@ -42,7 +54,7 @@ export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
       onClick: () => route("/trending"),
       name: "Trending",
     },
-  ]
+  ];
 
   const secondaryLinks = [
     {
@@ -57,7 +69,7 @@ export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
     },
     {
       icon: IconWithClassName(MdOutlineSmartDisplay, "text-xl"),
-      onClick: () => route("/uploadvideo"),
+      onClick: () => route("/studio"),
       name: "Your Videos",
     },
     {
@@ -98,7 +110,7 @@ export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
       name: "Course",
     },
   ];
-  
+
   const helpLinks = [
     {
       icon: IconWithClassName(MdSettings, "text-xl"),
@@ -117,11 +129,11 @@ export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
     },
     {
       icon: IconWithClassName(MdOutlineFeedback, "text-xl"),
-      onClick: () => route("/sendfeedback"),
+      onClick: handleFeedbackClick,
       name: "Send feedback",
     },
   ];
-  
+
   const textLinks = [
     [
       "About",
@@ -193,17 +205,21 @@ export const Sidebar = ({ isOpen }:{isOpen:boolean}) => {
             ))}
           </ul>
           <ul className="flex flex-col border-b-2 border-gray-700">
-            {helpLinks.map(({ icon, name,onClick }) => (
-              <li 
-              onClick={onClick} 
-              key={name} className={`pl-6 py-3 hover:bg-zinc-600`}>
-                <a href="" className="flex items-center gap-5">
+            {helpLinks.map(({ icon, name, onClick }) => (
+              <li
+                onClick={onClick}
+                key={name}
+                className={`pl-6 py-3 hover:bg-zinc-600 cursor-pointer`} 
+              >
+                <div className="flex items-center gap-5">
+                  {" "}
                   {icon}
                   <span className="text-sm tracking-wider">{name}</span>
-                </a>
+                </div>
               </li>
             ))}
           </ul>
+
           <ul className="flex gap-2 flex-wrap text-sm p-4 text-zinc-400">
             {textLinks[0].map((name) => (
               <li key={name}>{name}</li>

@@ -70,7 +70,8 @@ export default {
   },
   plugins: [
             require("@tailwindcss/line-clamp"),
-            require('@tailwindcss/aspect-ratio')
+            require('@tailwindcss/aspect-ratio'),
+            require('tailwind-scrollbar'),
   ],
   variants: {
     extend: {},

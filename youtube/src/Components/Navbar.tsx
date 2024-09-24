@@ -5,33 +5,39 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "preact-router/match";
 import { route } from "preact-router";
 import { useAppDispatch, useAppSelector } from "../Store/Hooks";
-import { clearSearchTerm, clearVideos, changeSearchTerm } from "../Store/Index";
+import { clearVideos, changeSearchTerm } from "../Store/Index";
 import getSearchPageVideos from "../Store/Reducers/getSearchPageVideos";
 import { useState } from "preact/hooks";
 import { Sidebar } from "./Sidebar";
 import { useSelector } from "react-redux";
 import { RootState } from "../Store/Index";
+import Notificationpopup from "./Notificationpopup";
+// import FeedbackForm from "../Pages/FeedbackForm";
 
 // Type for icon props
 interface IconProps {
   className?: string;
-  
 }
 
 // Wrapper component for icons to accept `className` prop
-// const IconWrapper = (Icon: ComponentType<IconProps>, className: string) => {
-//   return <Icon className={className} />;
-// };
-const IconWrapper = <T extends ComponentType<IconProps>>(Icon: T, className: string) => {
+const IconWrapper = <T extends ComponentType<IconProps>>(
+  Icon: T,
+  className: string
+) => {
   return <Icon className={className} />;
 };
 
-export default function Navbar({setShowSignin,setShowUpload,}: {setShowSignin: (value: boolean) => void;setShowUpload: (value: boolean) => void;}) {
+export default function Navbar({}: {
+  setShowSignin: (value: boolean) => void;
+  setShowUpload: (value: boolean) => void;
+}) {
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useAppDispatch();
   const searchTerm = useAppSelector((state) => state.youtubeApp.searchTerm);
   const [burgerMenu, setBurgerMenu] = useState(true);
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
+  const [isOpened, setIsOpened] = useState(false);
+  // const [showFeedback, setShowFeedback] = useState<boolean>(false);
 
   const handleSearch = () => {
     const currentPath = window.location.pathname;
@@ -56,7 +62,7 @@ export default function Navbar({setShowSignin,setShowUpload,}: {setShowSignin: (
             showFullWidthSearch ? "hidden md:flex" : "flex"
           }`}
         >
-          <div>
+          <div onClick={handleClick}>
             {IconWrapper(GiHamburgerMenu, "cursor-pointer text-white")}
           </div>
           <Link href="/">
@@ -93,15 +99,20 @@ export default function Navbar({setShowSignin,setShowUpload,}: {setShowSignin: (
                 {IconWrapper(BsArrowLeft, "")}
               </button>
             )}
-            <div className="flex bg-[#121212] border border-gray-700  items-center h-10 px-4 rounded-full flex-grow">
+            <div className="flex bg-[#121212] border border-gray-700 hover:border hover:border-gray-400 items-center h-10 px-4 rounded-full flex-grow md:flex-grow-0.5 md:ml-[75px] lg:flex-grow">
               <input
                 type="text"
                 placeholder="Search"
                 className="w-full bg-[#121212] focus:outline-none border-none"
                 value={searchTerm}
-                onChange={(e) => dispatch(changeSearchTerm(e.target.value) )}
+                onChange={(e) => dispatch(changeSearchTerm(e.target.value))}
               />
-              {IconWrapper(AiOutlineClose, `text-xl cursor-pointer ${!searchTerm ? "invisible" : "visible"}`)}
+              {IconWrapper(
+                AiOutlineClose,
+                `text-xl cursor-pointer ${
+                  !searchTerm ? "invisible" : "visible"
+                }`
+              )}
             </div>
             <button type="submit" className="p-3 bg-zinc-900 rounded-full">
               {IconWrapper(AiOutlineSearch, "text-xl text-white")}
@@ -117,16 +128,34 @@ export default function Navbar({setShowSignin,setShowUpload,}: {setShowSignin: (
         >
           {!showFullWidthSearch && (
             <>
-              {IconWrapper(AiOutlineSearch, "text-xl text-white cursor-pointer md:hidden")}
-              {IconWrapper(BsCameraVideo, "visible text-white md:block")}
-              <div className="hidden md:block relative">
-                {IconWrapper(BsBell, "text-white")}
-                <span className="absolute bottom-2 left-2 text-xs bg-red-600 rounded-full px-1">
-                  {/* 7+ */}
-                </span>
+              {/* Mobile Search Icon */}
+              <div
+                onClick={() => setShowFullWidthSearch(true)}
+                className="md:hidden"
+              >
+                {IconWrapper(
+                  AiOutlineSearch,
+                  "text-xl text-white cursor-pointer"
+                )}
               </div>
+              {IconWrapper(BsCameraVideo, "visible text-white md:block")}
+              <div
+                onClick={() => setIsOpened((prev) => !prev)}
+                className="hidden md:block relative text-white"
+              >
+                {<BsBell />}
+              </div>
+              <Notificationpopup
+                isOpened={isOpened}
+                setIsOpened={setIsOpened}
+              />
               <div className="flex gap-3 items-center text-xl sm:gap-5 md:gap-7 lg:gap-7 xl:gap-6">
-                {user ? (
+                {!user ? (
+                  IconWrapper(
+                    AiOutlineUser,
+                    "text-white w-8 h-8 rounded-full object-cover"
+                  )
+                ) : (
                   <div className="flex items-center gap-2">
                     <img
                       src={user.picture || ""}
@@ -135,13 +164,13 @@ export default function Navbar({setShowSignin,setShowUpload,}: {setShowSignin: (
                     />
                     <span className="text-white">{user.name}</span>
                   </div>
-                ) : (
-                  {IconWrapper(AiOutlineUser, "text-white w-8 h-8 rounded-full object-cover")}  )}
+                )}
               </div>
             </>
           )}
         </div>
       </div>
+
       <Sidebar isOpen={burgerMenu} />
     </>
   );

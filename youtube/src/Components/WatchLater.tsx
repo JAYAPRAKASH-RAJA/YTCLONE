@@ -21,7 +21,7 @@ interface Video {
   videoUrl: string;
 }
 
-const LikedVideos = () => {
+const WatchLater = () => {
   const [videoData, setVideoData] = useState<Video[]>([
     {
       id: 1,
@@ -113,7 +113,7 @@ const LikedVideos = () => {
         <div className='xl:w-[27%] lg:w-[28%] w-screen sticky  '>
           <div className='h-[600px] bg-gradient-to-t from-[#0f0f0f] to-[#aba9a9]'>
             <img src={'https://i.ytimg.com/vi/d6a8RymS1zI/maxresdefault.jpg'} alt="" className='p-4'/>
-            <h1 className='font-semibold text-3xl ml-4'><b>Liked videos</b></h1>
+            <h1 className='font-semibold text-3xl ml-4'><b>Watch later</b></h1>
             <h2 className='ml-4 text-lg mt-2 font-bold'>Dwayne jhonson</h2>
             <div className='flex gap-4 ml-4'>
               <h3>2 videos</h3>
@@ -164,4 +164,4 @@ const LikedVideos = () => {
   );
 };
 
-export default LikedVideos;
+export default WatchLater;

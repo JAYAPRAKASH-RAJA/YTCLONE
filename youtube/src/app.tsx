@@ -3,7 +3,7 @@ import Home from "./Pages/Home";
 import Watch from "./Pages/Watch";
 import Search from "./Pages/Search";
 import Callback from "./Pages/Callback";
-import VideoList from "./Pages/Videolist";
+// import VideoList from "./Pages/Videolist";
 import "./app.css";
 import { useFetchShorts } from './Pages/useFetchSorts';
 import ShortsList from './Components/ShortsList';
@@ -20,6 +20,18 @@ import { RootState } from "./Store/Index";
 import WatchedVideos from "./Components/WatchedVideos";
 import SubscriptionSection from "./Components/SubscriptionsSection";
 import Settings from "./Components/Settings";
+import ProVersion from "./Components/ProVersion";
+import ReportHistory from "./Components/ReportHistory";
+import UserAccount from "./Pages/UserAccount";
+import ProVersion1 from "./Components/ProVersion1";
+import DebitCardPage from "./Components/DebitCardPage";
+import QRPage from "./Components/QRPage";
+import Content from './Studio/Content'
+import Navbar2 from "./Studio/Navbar2";
+import FeedbackForm from "./Pages/FeedbackForm";
+import WatchHistory from "./Components/WatchHistory";
+import WatchLater from "./Components/WatchLater";
+// import FeedbackForm from "./Pages/FeedbackForm";
 
 
 export const App: React.FC = () => {
@@ -40,7 +52,6 @@ export const App: React.FC = () => {
         <Route path="/" component={Home} />
         <Route path="/search" component={Search} />
         <Route path="/watch/:id" component={Watch} />
-        <Route path="/uploadvideo" component={VideoList} />
         <Route path="/oauth2callback" component={Callback} />
         <Route path="/shorts" component={ShortsList} videos={videos} />
         <Route path="/trending" component={  TrendingVideos }  />
@@ -50,12 +61,19 @@ export const App: React.FC = () => {
         <Route path="/game" component={ GameSection }  />
         <Route path="/course" component={ CourseSection }  />
         <Route path="/settings" component={ Settings }  />
-
-        {/* {user && ( */}
+        <Route path="/proversion" component={ ProVersion }  />
+        <Route path="/proversionbuy" component={ ProVersion1 }  />
+        <Route path="/debitcarddetails" component={ DebitCardPage }  />
+        <Route path="/qrpage" component={ QRPage }  />
+        <Route path="/reporthistory" component={ ReportHistory }  />
+        <Route path="/users" component={ UserAccount }  />
         <Route path="/like" component={LikedVideos}  />
-        <Route path="/watch" component={WatchedVideos}  />
+        {/* <Route path="/watch" component={WatchedVideos}  /> */}
+        <Route path="/watch" component={WatchHistory}  />
+        <Route path="/watchlater" component={WatchLater}  />
         <Route path="/subscription" component={SubscriptionSection}  />
-      {/* )} */}
+        <Route path="/studio" component={Navbar2} />
+        <Route path="/feedback" component={FeedbackForm} />
 
       </Router>
       

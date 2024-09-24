@@ -1,5 +1,9 @@
-import { Link } from "preact-router";
+import { Link, route } from "preact-router";
 import { HomePageVideos } from "../Type";
+
+const usersaccount=()=>{
+  route('/users')
+}
 
 export default function Card({ data }: { data: HomePageVideos }) {
   return (
@@ -16,10 +20,10 @@ export default function Card({ data }: { data: HomePageVideos }) {
           />
         </Link>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 py-2">
         <div className="min-w-fit">
           <a href="#">
-            <img
+            <img onClick={usersaccount}
               src={data.channelInfo.image}
               className="h-9 w-9 rounded-full"
               alt="channel"

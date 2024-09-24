@@ -1,20 +1,20 @@
-import { useEffect, useState } from 'preact/hooks';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchSubscriptionVideos } from '../Store/SubscriptionsList';
+import { fetchMusicVideos, selectAllMusicVideos } from '../Store/MusicSlice';
 import { RootState } from '../Store/Index';
 import Navbar from './Navbar';
 
-const SubscriptionSection = () => {
+const SubscriptionSection: React.FC = () => {
   const dispatch = useDispatch();
-  const subscriptionVideos = useSelector((state: RootState) => state.subscription.subscriptionVideos);
-  const status = useSelector((state: RootState) => state.subscription.status);
+  const musicVideos = useSelector(selectAllMusicVideos);
+  const musicStatus = useSelector((state: RootState) => state.music.status);
   const [hoveredVideo, setHoveredVideo] = useState<string | null>(null);
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchSubscriptionVideos());
+    if (musicStatus === 'idle') {
+      dispatch(fetchMusicVideos());
     }
-  }, [status, dispatch]);
+  }, [musicStatus, dispatch]);
 
   const handleMouseEnter = (videoId: string) => {
     setHoveredVideo(videoId);
@@ -24,49 +24,47 @@ const SubscriptionSection = () => {
     setHoveredVideo(null);
   };
 
-  if (!subscriptionVideos || subscriptionVideos.length === 0) {
-    return <div>No subscription videos found.</div>;
-  }
-
   return (
     <>
       <Navbar />
-      <div className="p-4">
-        <div className="grid grid-cols-1 mt-16 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {subscriptionVideos.map((video) => (
+      <div className="music-section p-4">
+        <h1 className='font-bold text-2xl text-white mt-12'>Subscriptions</h1>
+        <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+          {musicVideos.map((video) => (
             <div
               key={video.id}
-              className="mb-4 p-4 rounded-lg shadow-lg relative overflow-hidden"
+              className="music-item shadow-md rounded-lg overflow-hidden relative"
               onMouseEnter={() => handleMouseEnter(video.id)}
               onMouseLeave={handleMouseLeave}
             >
               <img
-                src={video.snippet.thumbnails.medium.url}
-                alt={video.snippet.title}
-                className="w-full h-64 object-cover mb-2 cursor-pointer"
+                src={video.thumbnail}
+                alt={video.title}
+                className="w-full h-64 mb-2 object-cover"
               />
               {hoveredVideo === video.id && (
                 <iframe
                   src={`https://www.youtube.com/embed/${video.id}?autoplay=1`}
-                  title={video.snippet.title}
+                  title={video.title}
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  className="absolute inset-0 w-full top-4 h-[262px]"
+                  className="absolute inset-0 w-full h-64"
                 ></iframe>
               )}
-              <h2 className="text-lg font-semibold line-clamp-1 text-white">{video.snippet.title}</h2>
-              <div className="flex items-center mb-2">
-                <img
-                  src={video.snippet.thumbnails.default.url}
-                  alt={video.snippet.channelTitle}
-                  className="w-10 h-10 rounded-full mr-2 text-white"
-                />
-                <div>
-                  <h3 className="text-lg font-semibold text-white">{video.snippet.channelTitle}</h3>
+              <div className="p-4">
+                <div className="flex items-center mb-2">
+                  <img
+                    src={video.channelImage}
+                    alt={video.channelName}
+                    className="w-10 h-10 rounded-full mr-2 text-white"
+                  />
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">{video.channelName}</h3>
+                  </div>
                 </div>
+                <h3 className="text-lg font-semibold text-white">{video.title}</h3>
               </div>
-              <p className="text-sm line-clamp-2 text-white">{video.snippet.description}</p>
             </div>
           ))}
         </div>
