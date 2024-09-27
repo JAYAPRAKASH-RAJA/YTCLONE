@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchVideos, selectAllSportsVideos } from '../Store/SportsSlice';
 import { RootState } from '../Store/Index';
 import Navbar from './Navbar';
+// import { Sidebar } from './Sidebar';
 
 const SportsSection: React.FC = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const SportsSection: React.FC = () => {
   return (
     <>
       <Navbar />
+      {/* <Sidebar/> */}
       <div className="sports-section p-4">
         <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
           {sportsVideos.map((video) => (

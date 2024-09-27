@@ -8,7 +8,7 @@ import {
 } from "react-icons/ai";
 import Navbar from "./Navbar";
 
-const ShortsList: React.FC = () => {
+const ShortsList: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const { videos, status, error } = useFetchShorts();
 
   if (status === "loading") {
@@ -43,7 +43,7 @@ const ShortsList: React.FC = () => {
 
   return (
     <>
-    <Navbar/>
+    <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
     <div className="flex justify-center items-center min-h-screen p-4  bg-[#0F0F0F]">
       <div className="grid grid-cols-1 gap-36 min-w-80  md:min-w-96  lg:max-w-80 xl:max-w-96">
         {videos.map((video) => (

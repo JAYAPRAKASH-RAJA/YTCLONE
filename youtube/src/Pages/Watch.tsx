@@ -17,7 +17,7 @@ interface WatchProps {
   onVideoClick: (id: string) => void;
 }
 
-const Watch: React.FC<WatchProps> = ({ id,onVideoClick }) => {
+const Watch: React.FC<WatchProps> = ({ id,onVideoClick,isSidebarOpen,toggleSidebar }:{isSidebarOpen:boolean;toggleSidebar:boolean,id:any,onVideoClick:any}) => {
   const dispatch = useAppDispatch();
   const currentPlaying = useAppSelector(
     (state) => state.youtubeApp.currentPlaying
@@ -59,14 +59,12 @@ const Watch: React.FC<WatchProps> = ({ id,onVideoClick }) => {
   return (
     <>
       {currentPlaying && currentPlaying.videoId === id && (
-        <div className="max-h-screen overflow-auto    bg-[#0F0F0F] text-white ">
+        <div className={`max-h-screen overflow-auto bg-[#0F0F0F] text-white ${!isSidebarOpen?'bg-opacity-70 ':'bg-opacity-95'} `}>
           <div className="h-16 lg:h-20">
-            <Navbar />
-          </div>
-          <div
-            className="flex  flex-col lg:flex-row lg:px-12"
-            style={{ height: "calc(100vh - 6rem)" }}
-          >
+            <Navbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} /></div>
+          {/* <div className="flex  flex-col lg:flex-row lg:px-12 "    */}
+          <div className={`flex  flex-col lg:flex-row lg:px-12 transition-all `}   
+            style={{ height: "calc(100vh - 6rem)" }}>
             <div className="flex  flex-1  lg:pr-6">
               <div className=" w-full md:mt-custom-0 lg:mt-custom-0 sm:w-full   lg:h-full">
                 <div className="relative h-full rounded-2xl  sm:h-96 lg:h-full ">
@@ -147,7 +145,7 @@ const Watch: React.FC<WatchProps> = ({ id,onVideoClick }) => {
               </div>
                
             </div>
-            <div className=" flex flex-col ml-2 mt-custom-350  bg-[#0F0F0F] text-white  lg:ml-0  gap-3 w-full  lg:w-1/3 overflow-y-visible h-full sm:mt-custom-0 lg:mt-0">
+            <div className=" flex flex-col ml-2 mt-custom-350  bg-[#0F0F0F] text-white  lg:ml-0  gap-3 w-full  lg:w-1/3 overflow-y-visible h-full sm:mt-custom-0 lg:mt-0 " >
               {recommendedVideos.length > 0 &&
                 recommendedVideos.map((item) => (
                   <WatchCard data={item} key={item.videoId} />

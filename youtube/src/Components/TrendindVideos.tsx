@@ -5,7 +5,7 @@ import { RootState } from '../Store/Index';
 import '../app.css'
 import Navbar from './Navbar';
 
-const TrendingVideos = () => {
+const TrendingVideos = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const dispatch = useDispatch();
   const videos = useSelector((state: RootState) => state.videos.videos);
   const videoStatus = useSelector((state: RootState) => state.videos.status);
@@ -18,10 +18,11 @@ const TrendingVideos = () => {
 
   return (
     <>
-    <Navbar/>
-  <div className="grid grid-cols-1 mt-20 gap-4">
+    <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
+       <div className="grid grid-cols-1 p-0  md:p-4  gap-4">
+        <h1 className={`text-white text-3xl font-bold mt-14 ${!isSidebarOpen? 'ml-[10px]':'lg:ml-[240px]'}`}>Trending</h1>
       {videos.map((video, index) => (
-        <div key={video.id} className="flex flex-col md:flex-row">
+        <div key={video.id} className={`flex flex-col mt-2 ${!isSidebarOpen?'md:flex-row ':'md:flex-row lg:ml-[240px]'}`}>
           <iframe
             src={`https://www.youtube.com/embed/${video.id}`}
             title={video.snippet.title}

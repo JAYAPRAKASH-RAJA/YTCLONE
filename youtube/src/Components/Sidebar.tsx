@@ -27,13 +27,8 @@ const IconWithClassName = (
   return <Icon className={className} />;
 };
 
-export const Sidebar = ({
-  isOpen,
-  
-}: {
-  isOpen: boolean;
-  setShowFeedback: (value: boolean) => void;
-}) => {
+export const Sidebar = ({isSidebarOpen,toggleSidebar}: {isSidebarOpen: boolean; toggleSidebar:boolean, setShowFeedback: (value: boolean) => void;}) => {
+
   const handleFeedbackClick = () => {
    route('/feedback')
   }; 
@@ -155,7 +150,7 @@ export const Sidebar = ({
 
   return (
     <>
-      {isOpen && (
+      {isSidebarOpen && (
         <div
           className={`left-0 h-full top-14 w-60  bg-[#0F0F0F] text-white  pr-5 overflow-y-auto pb-8 fixed z-10  xl:block 2xl:block `}
         >

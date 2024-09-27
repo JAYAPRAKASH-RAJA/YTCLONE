@@ -7,37 +7,31 @@ import { route } from "preact-router";
 import { useAppDispatch, useAppSelector } from "../Store/Hooks";
 import { clearVideos, changeSearchTerm } from "../Store/Index";
 import getSearchPageVideos from "../Store/Reducers/getSearchPageVideos";
-import { useState } from "preact/hooks";
+import { useState } from 'preact/hooks'
 import { Sidebar } from "./Sidebar";
 import { useSelector } from "react-redux";
 import { RootState } from "../Store/Index";
 import Notificationpopup from "./Notificationpopup";
-// import FeedbackForm from "../Pages/FeedbackForm";
 
-// Type for icon props
 interface IconProps {
   className?: string;
 }
 
-// Wrapper component for icons to accept `className` prop
 const IconWrapper = <T extends ComponentType<IconProps>>(
   Icon: T,
   className: string
 ) => {
   return <Icon className={className} />;
 };
-
-export default function Navbar({}: {
-  setShowSignin: (value: boolean) => void;
-  setShowUpload: (value: boolean) => void;
-}) {
+ 
+export default function Navbar({toggleSidebar, isSidebarOpen}: {isSidebarOpen:boolean;toggleSidebar:boolean; setShowSignin: (value: boolean) => void;setShowUpload: (value: boolean) => void;}) 
+{
   const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useAppDispatch();
   const searchTerm = useAppSelector((state) => state.youtubeApp.searchTerm);
-  const [burgerMenu, setBurgerMenu] = useState(true);
+  // const [burgerMenu, setBurgerMenu] = useState(true);
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
-  // const [showFeedback, setShowFeedback] = useState<boolean>(false);
 
   const handleSearch = () => {
     const currentPath = window.location.pathname;
@@ -49,20 +43,15 @@ export default function Navbar({}: {
     }
   };
 
-  const handleClick = () => {
-    setBurgerMenu(!burgerMenu);
-  };
-
   return (
     <>
-      <div className="flex justify-between items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 h-14 bg-[#0F0F0F] opacity-100 fixed top-0 w-full z-20">
-        {/* Left Side: Burger Menu and Logo */}
+      <div className="flex justify-between items-center px-4 sm:px-6 md:px-8 lg:px-10 xl:px-14 h-14 bg-[#0F0F0F] opacity-100 fixed  w-full z-20">        
         <div
           className={`flex gap-3 items-center text-2xl ${
             showFullWidthSearch ? "hidden md:flex" : "flex"
           }`}
         >
-          <div onClick={handleClick}>
+          <div onClick={toggleSidebar}>
             {IconWrapper(GiHamburgerMenu, "cursor-pointer text-white")}
           </div>
           <Link href="/">
@@ -73,9 +62,7 @@ export default function Navbar({}: {
               </span>
             </div>
           </Link>
-        </div>
-
-        {/* Search Bar Section */}
+        </div>     
         <div
           className={`${
             showFullWidthSearch
@@ -119,7 +106,6 @@ export default function Navbar({}: {
             </button>
           </form>
         </div>
-
         {/* Right Side: Icons */}
         <div
           className={`flex gap-3 items-center text-xl sm:gap-5 md:gap-7 lg:gap-7 xl:gap-6 ${
@@ -160,8 +146,7 @@ export default function Navbar({}: {
                     <img
                       src={user.picture || ""}
                       alt="User Icon"
-                      className="w-9 h-9 rounded-full"
-                    />
+                      className="w-9 h-9 rounded-full"/>
                     <span className="text-white">{user.name}</span>
                   </div>
                 )}
@@ -170,8 +155,7 @@ export default function Navbar({}: {
           )}
         </div>
       </div>
-
-      <Sidebar isOpen={burgerMenu} />
+      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />      
     </>
   );
 }

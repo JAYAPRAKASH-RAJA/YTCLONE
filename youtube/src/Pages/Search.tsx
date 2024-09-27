@@ -8,7 +8,7 @@ import { route } from "preact-router";
 import getSearchPageVideos from "../Store/Reducers/getSearchPageVideos.tsx";
 import SearchCard from "../Components/SearchCard.tsx";
 
-export default function Search() {
+export default function Search({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) {
   const dispatch = useAppDispatch();
   const videos = useAppSelector((state) => state.youtubeApp.videos);
   const searchTerm = useAppSelector((state) => state.youtubeApp.searchTerm);
@@ -32,11 +32,11 @@ export default function Search() {
   return (
     <div className="max-h-screen overflow-hidden    bg-[#0F0F0F] text-white ">
       <div className="h-[7.5vh]">
-        <Navbar />
+        <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen} />
       </div>
       <div className="flex   bg-[#0F0F0F] text-white  h-[92.5vh] flex-col lg:flex-row">
         {videos.length ? (
-          <div className="py-4 px-4  bg-[#0F0F0F] text-white md:py-8 md:px-8 flex flex-col gap-5 w-full ">
+          <div className={`py-4 px-4  bg-[#0F0F0F] text-white md:py-8 md:px-8 flex ${!isSidebarOpen ?'flex-col':'flex-col ml-[230px]'} gap-5 w-full `}>
             <InfiniteScroll
               dataLength={videos.length}
               next={() => dispatch(getSearchPageVideos(true))}
@@ -56,6 +56,7 @@ export default function Search() {
           ''
         )}
       </div>
+      
     </div>
   );
 }

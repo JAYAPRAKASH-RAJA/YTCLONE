@@ -4,7 +4,7 @@ import { fetchMusicVideos, selectAllMusicVideos } from '../Store/MusicSlice';
 import { RootState } from '../Store/Index';
 import Navbar from './Navbar';
 
-const MusicSection: React.FC = () => {
+const MusicSection: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const dispatch = useDispatch();
   const musicVideos = useSelector(selectAllMusicVideos);
   const musicStatus = useSelector((state: RootState) => state.music.status);
@@ -26,9 +26,10 @@ const MusicSection: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}  />
+      
       <div className="music-section p-4">
-        <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        <div className={`grid  mt-10 ${!isSidebarOpen ? 'grid-cols-4':'grid-cols-3 lg:w-[80vw] ml-[230px]'} gap-4`}>
           {musicVideos.map((video) => (
             <div
               key={video.id}
@@ -39,7 +40,7 @@ const MusicSection: React.FC = () => {
               <img
                 src={video.thumbnail}
                 alt={video.title}
-                className="w-full h-64 mb-2 object-cover"
+                className="w-full h-64 mb-0 object-cover"
               />
               {hoveredVideo === video.id && (
                 <iframe
@@ -51,18 +52,18 @@ const MusicSection: React.FC = () => {
                   className="absolute inset-0 w-full h-64"
                 ></iframe>
               )}
-              <div className="p-4">
-                <div className="flex items-center mb-2">
+              <div className="p-1">
+                <div className="flex items-center ">
                   <img
                     src={video.channelImage}
                     alt={video.channelName}
                     className="w-10 h-10 rounded-full mr-2 text-white"
                   />
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{video.channelName}</h3>
+                    <h3 className="text-md font-bold text-white">{video.channelName}</h3>
                   </div>
                 </div>
-                <h3 className="text-lg font-semibold text-white">{video.title}</h3>
+                <h3 className="text-md font-bold text-white line-clamp-2">{video.title}</h3>
               </div>
             </div>
           ))}
