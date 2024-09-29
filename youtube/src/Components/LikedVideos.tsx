@@ -88,22 +88,6 @@ const LikedVideos = () => {
       thumbnailUrl: "https://i.ytimg.com/vi/d6a8RymS1zI/maxresdefault.jpg",
       videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
     },
-    {
-      id: 5,
-      title: "Another way to create variables",
-      channel: {
-        name: "Marvel Studios",
-        id: "Web",
-        profileUrl:
-          "https://yt3.ggpht.com/ytc/APkrFKZWeMCsx4Q9e_Hm6nhOOUQ3fv96QGUXiMr1-pPP=s48-c-k-c0x00ffffff-no-rj",
-      },
-      views: 300000,
-      postedAt: new Date("2024-09-22"),
-      description: "More JavaScript tips and tricks.",
-      duration: 745,
-      thumbnailUrl: "https://i.ytimg.com/vi/d6a8RymS1zI/maxresdefault.jpg",
-      videoUrl: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-    },
   ]);
 
   return (
