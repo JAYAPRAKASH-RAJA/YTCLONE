@@ -17,6 +17,8 @@ import {
 import { TbMusic, TbDeviceGamepad2 } from "react-icons/tb";
 import { BiBulb, BiNews } from "react-icons/bi";
 import { route } from "preact-router";
+import FeedbackForm from "../Pages/FeedbackForm";
+import { useState } from "preact/hooks";
 
 type IconProps = JSX.IntrinsicElements["svg"];
 
@@ -29,9 +31,15 @@ const IconWithClassName = (
 
 export const Sidebar = ({isSidebarOpen,toggleSidebar}: {isSidebarOpen: boolean; toggleSidebar:boolean, setShowFeedback: (value: boolean) => void;}) => {
 
-  const handleFeedbackClick = () => {
-   route('/feedback')
-  }; 
+const [isfeedback,setIsFeedback]=useState<boolean>(false);
+
+
+const handleFeedbackClick = () => {
+  setIsFeedback(true);
+  console.log("Feedback button clicked"); // Log a simple message
+};
+   
+
 
   const mainLinks = [
     {
@@ -117,11 +125,11 @@ export const Sidebar = ({isSidebarOpen,toggleSidebar}: {isSidebarOpen: boolean; 
       onClick: () => route("/reporthistory"),
       name: "Report history",
     },
-    {
-      icon: IconWithClassName(MdOutlineHelpOutline, "text-xl"),
-      onClick: () => route("/help"),
-      name: "Help",
-    },
+    // {
+    //   icon: IconWithClassName(MdOutlineHelpOutline, "text-xl"),
+    //   onClick: () => route("/help"),
+    //   name: "Help",
+    // },
     {
       icon: IconWithClassName(MdOutlineFeedback, "text-xl"),
       onClick: handleFeedbackClick,
@@ -150,6 +158,7 @@ export const Sidebar = ({isSidebarOpen,toggleSidebar}: {isSidebarOpen: boolean; 
 
   return (
     <>
+    <FeedbackForm isfeedback={isfeedback} setIsFeedback={setIsFeedback} />
       {isSidebarOpen && (
         <div
           className={`left-0 h-full top-14 w-60  bg-[#0F0F0F] text-white  pr-5 overflow-y-auto pb-8 fixed z-10  xl:block 2xl:block `}

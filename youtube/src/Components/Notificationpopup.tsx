@@ -106,39 +106,8 @@ const Notificationpopup = ({ isOpened, setIsOpened }: NotificationpopupProps) =>
         "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     }
     ,
-    {
-      id: 5,
-      title: "NEW Way To Create Variables In JavaScript",
-      channel: {
-        name: "Marvel Studios",
-        id: "Web",
-        profileUrl:
-          "https://yt3.ggpht.com/ytc/APkrFKZWeMCsx4Q9e_Hm6nhOOUQ3fv96QGUXiMr1-pPP=s48-c-k-c0x00ffffff-no-rj",
-      },
-      views: 257136,
-      postedAt: new Date("2023-08-20"),
-      duration: 732,
-      thumbnailUrl: "https://i.ytimg.com/vi/d6a8RymS1zI/maxresdefault.jpg",
-      videoUrl:
-        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    }
-    ,
-    {
-      id: 6,
-      title: "NEW Way To Create Variables In JavaScript",
-      channel: {
-        name: "Marvel Studios",
-        id: "Web",
-        profileUrl:
-          "https://yt3.ggpht.com/ytc/APkrFKZWeMCsx4Q9e_Hm6nhOOUQ3fv96QGUXiMr1-pPP=s48-c-k-c0x00ffffff-no-rj",
-      },
-      views: 257136,
-      postedAt: new Date("2023-08-20"),
-      duration: 732,
-      thumbnailUrl: "https://i.ytimg.com/vi/d6a8RymS1zI/maxresdefault.jpg",
-      videoUrl:
-        "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-    }
+    
+    
     
   ];
 

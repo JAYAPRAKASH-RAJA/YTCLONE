@@ -1,16 +1,16 @@
 import { useSelector } from "react-redux";
 import Navbar from "./Navbar";
-import icon from "../assets/avatar.png";
+// import icon from "../assets/avatar.png";
 import { route } from "preact-router";
 import { useState } from "preact/hooks";
-
+import icon from '../assets/usericon.png'
 interface User {
   _id: string;
   img: string;
   name: string;
 }
 
-const Settings = () => {
+const Settings = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const { currentUser } = useSelector(
     (state: { user: { currentUser: User | null } }) =>
       state.user || { currentUser: null }
@@ -20,10 +20,10 @@ const Settings = () => {
 
   return (
     <>
-      <Navbar />
-      <div className="flex flex-col w-full min-h-screen lg:flex-row text-white mt-[40px] bg-[#0F0F0F]">
-        {/* Sidebar */}
-        <div className="w-full lg:w-[20%] xl:w-[15%] p-4 bg-[#0F0F0F] text-white">
+      <Navbar toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
+
+      <div className={`flex flex-col w-full min-h-screen lg:flex-row text-white p-12  bg-[#0F0F0F] ${!isSidebarOpen?'flexrow':'lg:ml-[200px]'}`}>
+        <div className="w-full lg:w-[20%] xl:w-[15%] p-4 bg-[#0F0F0F] text-white"> 
           <h1 className="text-2xl mb-4">Settings</h1>
           <ul className="cursor-pointer space-y-2">
             <li
@@ -63,19 +63,19 @@ const Settings = () => {
                 This is your public presence on YouTube. You need a channel to
                 upload your own videos, comment on videos, or create playlists.
               </p>
-              <div className="mb-4">
+              <div className="mb-4 relative">
                 <h2 className="text-lg mb-2">Your channel</h2>
                 {currentUser ? (
                   <div className="flex items-center mb-4">
                     <img
-                      className="w-8 h-8 rounded-full object-cover mr-2"
-                      src={currentUser.img || icon}
+                      className="w-12 h-12 rounded-full object-cover mr-2"
+                      src={ icon ||currentUser.img }
                       alt="avatar"
                     />
                     <span className="text-xl text-white">{currentUser.name}</span>
                   </div>
                 ) : (
-                  ""
+                  <div><img src={icon} alt="" className='lg:w-24 lg:h-24 lg:ml-0 md:w-12 md:h-12 md:mt-4 md:ml-0 md:pr-2 w-10 h-12 ml-60 absolute'/> </div>
                 )}
                 <section className="space-y-2 flex flex-col xl:ml-36 lg:ml-36 md:ml-12 sm:ml-6">
                   <h3 className="text-lg text-blue-400 cursor-pointer">

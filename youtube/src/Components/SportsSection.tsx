@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchVideos, selectAllSportsVideos } from '../Store/SportsSlice';
 import { RootState } from '../Store/Index';
 import Navbar from './Navbar';
-// import { Sidebar } from './Sidebar';
 
-const SportsSection: React.FC = () => {
+const SportsSection: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const dispatch = useDispatch();
   const sportsVideos = useSelector(selectAllSportsVideos);
   const videoStatus = useSelector((state: RootState) => state.sports.status);
@@ -27,10 +26,11 @@ const SportsSection: React.FC = () => {
 
   return (
     <>
-      <Navbar />
-      {/* <Sidebar/> */}
+      <Navbar toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
+      
       <div className="sports-section p-4">
-        <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        {/* <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4"> */}
+        <div className={`grid  mt-10 ${!isSidebarOpen ? 'grid-cols-4':'grid-cols-3 lg:w-[80vw] ml-[230px]'} gap-4`}>
           {sportsVideos.map((video) => (
             <div
               key={video.id}

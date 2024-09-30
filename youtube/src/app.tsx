@@ -3,7 +3,6 @@ import Home from "./Pages/Home";
 import Watch from "./Pages/Watch";
 import Search from "./Pages/Search";
 import Callback from "./Pages/Callback";
-// import VideoList from "./Pages/Videolist";
 import "./app.css";
 import { useFetchShorts } from './Pages/useFetchSorts';
 import ShortsList from './Components/ShortsList';
@@ -17,7 +16,6 @@ import LikedVideos from "./Components/LikedVideos";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "preact/hooks";
 import { RootState } from "./Store/Index";
-// import WatchedVideos from "./Components/WatchedVideos";
 import SubscriptionSection from "./Components/SubscriptionsSection";
 import Settings from "./Components/Settings";
 import ProVersion from "./Components/ProVersion";
@@ -26,9 +24,8 @@ import UserAccount from "./Pages/UserAccount";
 import ProVersion1 from "./Components/ProVersion1";
 import DebitCardPage from "./Components/DebitCardPage";
 import QRPage from "./Components/QRPage";
-// import Content from './Studio/Content'
 import Navbar2 from "./Studio/Navbar2";
-import FeedbackForm from "./Pages/FeedbackForm";
+// import FeedbackForm from "./Pages/FeedbackForm";   
 import WatchHistory from "./Components/WatchHistory";
 import WatchLater from "./Components/WatchLater";
 // import FeedbackForm from "./Pages/FeedbackForm";
@@ -49,7 +46,6 @@ export const App: React.FC = () => {
 
   return (
     <div id="app">
-
       <Router>
         <Route path="/" component={Home} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}   />
         <Route path="/search" component={Search} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
@@ -74,8 +70,8 @@ export const App: React.FC = () => {
         <Route path="/watchlater" component={WatchLater}  isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
         <Route path="/subscription" component={SubscriptionSection} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}  />
         <Route path="/studio" component={Navbar2} />
-        <Route path="/feedback" component={FeedbackForm} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
+        {/* <Route path="/feedback" component={FeedbackForm} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/> */}
       </Router>
     </div>
-  );
+  );  
 };

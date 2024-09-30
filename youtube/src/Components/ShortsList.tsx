@@ -1,101 +1,140 @@
-import { useFetchShorts } from "../Pages/useFetchSorts";
-import {
-  AiFillHeart,
-  AiOutlineDislike,
-  AiOutlineShareAlt,
-  AiOutlineComment,
-  AiOutlineMore,
-} from "react-icons/ai";
+import { useState } from "react";
+import { AiFillHeart, AiOutlineDislike, AiOutlineShareAlt, AiOutlineComment } from "react-icons/ai";
+import { BsThreeDotsVertical } from "react-icons/bs";
 import Navbar from "./Navbar";
 
-const ShortsList: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
-  const { videos, status, error } = useFetchShorts();
+interface Video {
+  id: string;
+  title: string;
+  channel: string;
+  views: number;
+  likes: number;
+  dislikes: number;
+  comments: number;
+  duration: string;
+  thumbnailUrl: string;
+  videoUrl: string;
+}
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
+const ShortsList: React.FC<{ isSidebarOpen: boolean; toggleSidebar: boolean }> = ({ isSidebarOpen, toggleSidebar }) => {
+  const [playingVideoId, setPlayingVideoId] = useState<string | null>(null);
 
-  if (status === "failed") {
-    return <div>Error: {error}</div>;
-  }
+  const gameShorts: Video[] = [
+    {
+      id: "short1",
+      title: "Epic Gaming Moments!",
+      channel: "Gaming Daily",
+      views: 1200,
+      likes: 300,
+      dislikes: 50,
+      comments: 45,
+      duration: "15s",
+      thumbnailUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+      videoUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+    },
+    {
+      id: "short2",
+      title: "Top 5 Tips for Winning in Fortnite",
+      channel: "Fortnite Master",
+      views: 2500,
+      likes: 500,
+      dislikes: 30,
+      comments: 120,
+      duration: "30s",
+      thumbnailUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+      videoUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+    },
+    {
+      id: "short3",
+      title: "Funny Fails in Among Us",
+      channel: "Among Us Fun",
+      views: 1800,
+      likes: 400,
+      dislikes: 20,
+      comments: 70,
+      duration: "20s",
+      thumbnailUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+      videoUrl: "https://www.youtube.com/embed/Db39_uhy_2w",
+    },
+  ];
 
-  const handleThumbnailClick = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
-  ) => {
-    const videoContainer = e.currentTarget.closest(".video-container");
-    const iframeElement = videoContainer?.querySelector(
-      "iframe"
-    ) as HTMLIFrameElement;
-
-    if (iframeElement) {
-      iframeElement.style.display = "block";
-      iframeElement.style.position = "absolute";
-      iframeElement.style.top = "0";
-      iframeElement.style.left = "0";
-      iframeElement.style.width = "100%";
-      iframeElement.style.height = "100%";
-      iframeElement.style.zIndex = "10";
-      e.currentTarget.style.display = "none"; 
-    } else {
-      console.error("Iframe element not found");
-    }
+  const handleThumbnailClick = (videoId: string) => {
+    setPlayingVideoId(videoId);
   };
 
   return (
     <>
-    <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
-    <div className="flex justify-center items-center min-h-screen p-4  bg-[#0F0F0F]">
-      <div className="grid grid-cols-1 gap-36 min-w-80  md:min-w-96  lg:max-w-80 xl:max-w-96">
-        {videos.map((video) => (
-          <div
-            key={video.videoId}
-            className="relative bottom-20 md:top-[-111px] lg:top-[-111px] xl:top-[-140px] rounded-2xl lg:w-custom-400 xl:w-custom-500 h-screen mb-8 video-container"
-          >
-            <div className="xl:w-custom-600 rounded-2xl overflow-hidden">
-              <img
-                src={video.videoThumbnail}
-                alt={video.videoTitle}
-                className="absolute rounded-2xl h-custom-800 md:h-custom-850 w-custom-500 lg:h-custom-850 xl:h-custom-1100 pb-20 object-cover cursor-pointer"
-                onClick={handleThumbnailClick}
-              />
+  <div className='hidden md:block'>
+  <Navbar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
+  </div>
 
-               <iframe
-                src={`https://www.youtube.com/embed/${video.videoId}?autoplay=1&mute=1`}
-                 className="w-[100%] h-[100%] object-cover "
-                style={{ display: 'none' }}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              ></iframe>  
-             
-            </div>
+      <div className="flex justify-center items-center w-screen mt-5 md:p-16 md:mt-0   min-h-screen bg-[#0F0F0F]">
+        <div className="grid grid-cols-1 gap-8">
+          {gameShorts.map((video) => (
+            <div key={video.id} className="relative md:w-full w-[100vw]  max-w-[450px] md:max-w-[350px] mx-auto">
+              {playingVideoId === video.id ? (
+                <iframe
+                  src={video.videoUrl}
+                  title={video.title}
+                  width="350"
+                  height="600"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="rounded-2xl w-full h-[600px] object-cover"
+                ></iframe>
+              ) : (
+                <div onClick={() => handleThumbnailClick(video.id)} className="cursor-pointer relative">
+                  <iframe
+                    src={video.thumbnailUrl}
+                    title={video.title}
+                    width="350"
+                    height="600"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="rounded-2xl w-full h-[600px] object-cover"
+                  ></iframe>
+                </div>
+              )}
 
-            <div className="absolute bottom-0 left-0 p-4 w-full rounded-lg">
-              <div className="flex items-center mb-2">
-                <img
-                  src={video.channelInfo.image || "placeholder-image-url"} 
-                  alt={video.channelInfo.name}
-                  className="w-10 h-10 rounded-full mr-2"
-                />
-                <h2 className="text-white font-semibold">
-                  {video.channelInfo.name}
-                </h2>
+              {/* Channel and title */}
+              <div className="absolute bottom-8 left-4 text-white">
+                <div className="flex items-center mb-2">
+                  <img
+                    src={"https://via.placeholder.com/40"} 
+                    alt={video.channel}
+                    className="w-10 h-10 rounded-full mr-2"
+                  />
+                  <h2 className="text-sm font-semibold">{video.channel}</h2>
+                </div>
+                <h2 className="text-sm font-normal line-clamp-2">{video.title}</h2>
               </div>
-              <h2 className="text-white text-md font-normal line-clamp-2">
-                {video.videoTitle}
-              </h2>
-            </div>
 
-            {/* Interaction icons */}
-            <div className="absolute left-[280px] md:left-[390px] bottom-20 space-y-8 lg:left-[410px] xl:left-[510px] lg:bottom-16 xl:bottom-20 flex flex-col items-center lg:space-y-8 xl:space-y-12 text-black">
-              <AiFillHeart className="text-4xl cursor-pointer  bg-slate-200 rounded-3xl p-1" />
-              <AiOutlineDislike className="text-4xl cursor-pointer bg-slate-200 rounded-3xl p-1" />
-              <AiOutlineComment className="text-4xl cursor-pointer bg-slate-200 rounded-3xl p-1" />
-              <AiOutlineShareAlt className="text-4xl cursor-pointer bg-slate-200 rounded-3xl p-1" />
-              <AiOutlineMore className="text-4xl cursor-pointer bg-slate-200 rounded-3xl p-1" />
+              {/* Icons and counts */}
+              <div className="absolute top-1/4 right-0 flex flex-col space-y-4 text-white md:right-[-40px]">
+                <div className="text-3xl cursor-pointer  p-1 rounded-full flex flex-col items-center">
+                  <AiFillHeart />
+                  <span className="text-sm mt-1">{video.likes}</span>
+                </div>
+                <div className="text-3xl cursor-pointer p-1 rounded-full flex flex-col items-center">
+                  <AiOutlineDislike />
+                  <span className="text-sm mt-1">{video.dislikes}</span>
+                </div>
+                <div className="text-3xl cursor-pointer  p-1 rounded-full flex flex-col items-center">
+                  <AiOutlineComment />
+                  <span className="text-sm mt-1">{video.comments}</span>
+                </div>
+                <div className="text-3xl cursor-pointer  p-1 rounded-full flex flex-col items-center">
+                  <AiOutlineShareAlt />
+                </div>
+                <div className="text-3xl cursor-pointer  p-1 rounded-full flex flex-col items-center">
+                  <BsThreeDotsVertical />
+                </div>
+                
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
     </>
   );
 };

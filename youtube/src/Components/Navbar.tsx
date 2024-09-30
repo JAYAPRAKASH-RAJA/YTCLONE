@@ -155,7 +155,7 @@ export default function Navbar({toggleSidebar, isSidebarOpen}: {isSidebarOpen:bo
           )}
         </div>
       </div>
-      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />      
+      <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen}/>      
     </>
   );
 }

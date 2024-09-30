@@ -23,7 +23,7 @@ interface Video {
   videoUrl: string;
 }
 
-const WatchHistory = () => {
+const WatchHistory = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const [videoData, setVideoData] = useState<Video[]>([
     {
       id: 1,
@@ -119,7 +119,7 @@ const WatchHistory = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar  toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
       <div className=" flex  h-screen ">
       <div className="flex  flex-col   text-white p-5 lg:mt-10 xl:mt-10 xl:w-[50%] lg:w-[60%] sm:w-full sm:mt-80 h-full overflow-y-auto ml-80 xl:ml-80 lg:ml-auto md:ml-28 ">
           <h1 className="text-3xl mb-10">

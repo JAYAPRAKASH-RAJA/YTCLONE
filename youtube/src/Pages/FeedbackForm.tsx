@@ -1,12 +1,11 @@
 import { route } from "preact-router";
 import { useState } from "preact/hooks";
 
-const FeedbackForm = () => {
+const FeedbackForm = ({isfeedback,setIsFeedback}:{isfeedback:boolean,setIsFeedback:boolean}) => {
   const [store, setStore] = useState({
     comments: '',
   });
 
-  // Function to handle form submission
   const handlestore = (e: any) => {
     e.preventDefault();
 
@@ -15,17 +14,13 @@ const FeedbackForm = () => {
       return;
     }
 
-    // You can perform any action you need here, like sending the feedback to a server.
     console.log("Feedback Submitted:", store.comments);
 
-    // Optionally clear the comments after submission
     setStore({ comments: "" });
 
-    // Navigate back to home after submission
     route("/");
   };
 
-  // Function to handle input change in textarea
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setStore((prevStore) => ({
@@ -35,18 +30,19 @@ const FeedbackForm = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-80 lg:w-96 xl:w-96 bg-black text-white">
+    <> {isfeedback && (
+    <div className="fixed  top-0 right-0 flex   w-80 h-full lg:w-96 lg:h-full xl:w-96 xl:h-full md:h-full bg-black text-white bg-opacity-100 z-50">
       <div className="flex flex-col xl:w-96 p-4">
         <div className="flex justify-between items-center mb-4">
           <h1 className="text-xl">Send feedback to YouTube</h1>
-          <button className="text-xl" onClick={() => route('/')}>×</button>
+          <button className="text-xl" onClick={() => setIsFeedback(false)}>×</button>
         </div>
         <div className="flex flex-col space-y-4">
           <h2 className="text-lg">Describe Your Feedback</h2>
           <textarea
             name="comments"
-            value={store.comments} // Bind the textarea value to the state
-            onChange={handleInputChange} // Handle input changes
+            value={store.comments} 
+            onChange={handleInputChange} 
             className="border border-gray-300 bg-black p-2 w-full rounded text-white"
             placeholder="Tell us what prompted this feedback..."
             rows={5}
@@ -65,6 +61,9 @@ const FeedbackForm = () => {
         </div>
       </div>
     </div>
+  )}
+  </>
+
   );
 };
 

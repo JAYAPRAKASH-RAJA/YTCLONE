@@ -1,9 +1,9 @@
 import { useState } from 'preact/hooks';
-// import { Location } from 'preact-router';
+
 
 export const useSidebar = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const location = location();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+ 
 
   const toggleSidebar = () => {
    if(isSidebarOpen){
@@ -13,6 +13,6 @@ export const useSidebar = () => {
         setIsSidebarOpen(true)
     }
   };
-
+ 
   return { isSidebarOpen, toggleSidebar };
 };

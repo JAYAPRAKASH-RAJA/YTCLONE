@@ -69,7 +69,7 @@ export const fetchShorts = createAsyncThunk('shorts/fetchShorts', async () => {
     videoDescription: item.snippet.description, // Ensure this matches the type
     videoThumbnail: item.snippet.thumbnails.high.url,
     videoDuration: item.contentDetails.duration,
-    videoUrl: `https://www.youtube.com/watch?v=${item.id.videoId}`, // Corrected URL format
+    videoUrl: `https://www.youtube.com/embed/${item.id.videoId}`, // Corrected URL format
     videoViews: '1M views',
     videoAge: '1 day ago',
     channelInfo: {

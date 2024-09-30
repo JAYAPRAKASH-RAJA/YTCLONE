@@ -4,7 +4,7 @@ import { fetchGameVideos, selectAllGameVideos } from '../Store/GameSlice';
 import { RootState } from '../Store/Index';
 import Navbar from './Navbar';
 
-const GameSection: React.FC = () => {
+const GameSection: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const dispatch = useDispatch();
   const gameVideos = useSelector(selectAllGameVideos);
   const videoStatus = useSelector((state: RootState) => state.gaming.status);
@@ -26,9 +26,10 @@ const GameSection: React.FC = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen} />
       <div className="game-section p-4">
-        <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
+        {/* <div className="grid grid-cols-1 mt-20 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4"> */}
+        <div className={`grid  mt-10 ${!isSidebarOpen ? 'grid-cols-4':'grid-cols-3 lg:w-[80vw] ml-[230px]'} gap-4`}>
           {gameVideos.map((video) => (
             <div
               key={video.id}

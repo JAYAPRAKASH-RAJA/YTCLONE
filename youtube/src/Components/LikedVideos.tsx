@@ -21,7 +21,7 @@ interface Video {
   videoUrl: string;
 }
 
-const LikedVideos = () => {
+const LikedVideos = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSidebar:boolean}) => {
   const [videoData, setVideoData] = useState<Video[]>([
     {
       id: 1,
@@ -92,7 +92,7 @@ const LikedVideos = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar toggleSidebar={toggleSidebar}  isSidebarOpen={isSidebarOpen}/>
       <div className='text-white gap-20 lg:p-20 w-full  flex flex-col md:flex-col lg:flex-row xl:flex-row lg:ml-52 md:p-0 md:mt-16 lg:mt-2 p-0 mt-16'>
         <div className='xl:w-[27%] lg:w-[28%] w-screen sticky  '>
           <div className='h-[600px] bg-gradient-to-t from-[#0f0f0f] to-[#aba9a9]'>

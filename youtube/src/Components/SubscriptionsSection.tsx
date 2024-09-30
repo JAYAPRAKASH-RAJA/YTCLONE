@@ -30,7 +30,7 @@ const SubscriptionSection: React.FC = ({isSidebarOpen,toggleSidebar}:{isSidebarO
      
       <div className="p-4 ">
         <h1 className={`font-bold text-2xl text-white mt-12 ${isSidebarOpen?'ml-[240px]':'ml-[10px]'}`}>Subscriptions</h1>
-        <div className={`grid  mt-5  ${!isSidebarOpen ?'grid-cols-1 lg:grid-cols-3 p-0 md:w-[100vw] md:grid-cols-2 ':'lg:grid-cols-3  w-[100vw] md:ml-[230px] grid-cols-1  md:grid-cols-2 '} gap-4`}>
+        <div className={`grid  mt-5  ${!isSidebarOpen ?'grid-cols-1 lg:grid-cols-3 p-0 md:w-[100vw] md:grid-cols-2 ':'lg:grid-cols-3  w-[80vw] md:ml-[230px] grid-cols-1  md:grid-cols-2 '} gap-4`}>
           {musicVideos.map((video) => (
             <div
               key={video.id}
