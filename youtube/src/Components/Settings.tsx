@@ -81,7 +81,7 @@ const Settings = ({isSidebarOpen,toggleSidebar}:{isSidebarOpen:boolean;toggleSid
                   <h3 className="text-lg text-blue-400 cursor-pointer">
                     Channel status and features
                   </h3>
-                  <h3 className="text-lg text-blue-400 cursor-pointer">
+                  <h3 className="text-lg text-blue-400 cursor-pointer" onClick={()=>route('/createchannel')}>
                     Create a new channel
                   </h3>
                   <h3 className="text-lg text-blue-400 cursor-pointer">

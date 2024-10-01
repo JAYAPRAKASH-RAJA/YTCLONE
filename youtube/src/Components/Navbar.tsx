@@ -12,6 +12,7 @@ import { Sidebar } from "./Sidebar";
 import { useSelector } from "react-redux";
 import { RootState } from "../Store/Index";
 import Notificationpopup from "./Notificationpopup";
+import YoutubeSettings from "./YoutubeSettings";
 
 interface IconProps {
   className?: string;
@@ -32,6 +33,7 @@ export default function Navbar({toggleSidebar, isSidebarOpen}: {isSidebarOpen:bo
   // const [burgerMenu, setBurgerMenu] = useState(true);
   const [showFullWidthSearch, setShowFullWidthSearch] = useState(false);
   const [isOpened, setIsOpened] = useState(false);
+  const [details,setDetails]=useState(true);
 
   const handleSearch = () => {
     const currentPath = window.location.pathname;
@@ -135,6 +137,7 @@ export default function Navbar({toggleSidebar, isSidebarOpen}: {isSidebarOpen:bo
                 isOpened={isOpened}
                 setIsOpened={setIsOpened}
               />
+                <YoutubeSettings details={details} setDetails={setDetails}/>
               <div className="flex gap-3 items-center text-xl sm:gap-5 md:gap-7 lg:gap-7 xl:gap-6">
                 {!user ? (
                   IconWrapper(
@@ -146,7 +149,7 @@ export default function Navbar({toggleSidebar, isSidebarOpen}: {isSidebarOpen:bo
                     <img
                       src={user.picture || ""}
                       alt="User Icon"
-                      className="w-9 h-9 rounded-full"/>
+                      className="w-9 h-9 rounded-full" onClick={()=>setDetails(true)}/>
                     <span className="text-white">{user.name}</span>
                   </div>
                 )}

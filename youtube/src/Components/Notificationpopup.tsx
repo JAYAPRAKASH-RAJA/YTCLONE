@@ -113,7 +113,8 @@ const Notificationpopup = ({ isOpened, setIsOpened }: NotificationpopupProps) =>
 
   return (
     <div className="relative">
-      {isOpened && (
+      {isOpened && 
+      (
         <div className="absolute right-0 mt-8 w-96 bg-[#282828] rounded-lg shadow-lg p-4 z-50">
           {/* Header */}
           <div className="flex justify-between items-center mb-4">

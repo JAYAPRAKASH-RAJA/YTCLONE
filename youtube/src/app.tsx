@@ -30,6 +30,7 @@ import WatchHistory from "./Components/WatchHistory";
 import WatchLater from "./Components/WatchLater";
 // import FeedbackForm from "./Pages/FeedbackForm";
 import { useSidebar } from "./Components/useSidebar";
+import CreateChannel from "./Components/CreateChannel";
 
 export const App: React.FC = () => {
   const { videos } = useFetchShorts();
@@ -70,7 +71,7 @@ export const App: React.FC = () => {
         <Route path="/watchlater" component={WatchLater}  isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
         <Route path="/subscription" component={SubscriptionSection} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}  />
         <Route path="/studio" component={Navbar2} />
-        {/* <Route path="/feedback" component={FeedbackForm} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/> */}
+        <Route path="/createchannel" component={CreateChannel} isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar}/>
       </Router>
     </div>
   );  
